@@ -225,7 +225,7 @@ class CitySceneController {
     const radius = 38.0;
     const height = 22.0;
     return PerspectiveCamera(
-      position: vm.Vector3(radius * vm.cos(angle), height, radius * vm.sin(angle) * 0.8),
+      position: vm.Vector3(radius * math.cos(angle), height, radius * math.sin(angle) * 0.8),
       target: vm.Vector3(0, 2, 0),
     );
   }
@@ -261,7 +261,7 @@ class _CitySceneViewState extends State<CitySceneView> {
   Widget build(BuildContext context) {
     if (!_ready) return const ColoredBox(color: Color(0xFF0f0f1a), child: Center(child: CircularProgressIndicator()));
     if (widget.controller.scene != null && _error == null) {
-      return SceneView(widget.controller.scene!, cameraBuilder: (elapsed) => widget.controller.createCamera(elapsed));
+      return SceneView(widget.controller.scene!, cameraBuilder: (elapsed) => widget.controller.createCamera(elapsed.inMicroseconds / 1000000.0));
     }
     return _FallbackView(agents: widget.controller.agents, error: _error);
   }
